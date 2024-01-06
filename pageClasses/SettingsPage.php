@@ -35,6 +35,8 @@ class SettingsPage extends Page
   const field_contact = self::prefix . "contact";
   const field_hours = self::prefix . "hours";
   const field_footerlinks = self::prefix . "footerlinks";
+  const field_topbar = self::prefix . "topbar";
+  const field_footer = self::prefix . "footer";
 
   public function init(): void
   {
@@ -94,6 +96,7 @@ class SettingsPage extends Page
         'gridMode' => 'grid', // left, list
         'columnWidth' => 50,
       ],
+
       self::field_redirects => [
         'type' => 'textarea',
         'label' => 'Redirects',
@@ -102,6 +105,12 @@ class SettingsPage extends Page
         'notes' => "Enter one redirect per line.
           example --> https://www.example.com",
         'collapsed' => Inputfield::collapsedBlank,
+      ],
+
+      // top-bar
+      self::field_topbar => [
+        'type' => 'FieldsetOpen',
+        'label' => 'Top-Bar',
       ],
       self::field_phone => [
         'type' => 'text',
@@ -148,7 +157,14 @@ class SettingsPage extends Page
         ],
         'columnWidth' => 33,
       ],
+      self::field_topbar . "_END" => [
+        'type' => 'FieldsetClose',
+      ],
 
+      self::field_footer => [
+        'type' => 'FieldsetOpen',
+        'label' => 'Footer',
+      ],
       self::field_contact => [
         'type' => 'textarea',
         'inputfieldClass' => 'InputfieldTinyMCE',
@@ -181,8 +197,14 @@ class SettingsPage extends Page
         'icon' => 'sitemap',
         'columnWidth' => 33,
       ],
+      self::field_footer . "_END" => [
+        'type' => 'FieldsetClose',
+      ],
     ];
-    foreach ($fields as &$data) $data['tags'] = "RockSettings";
+    foreach ($fields as &$data) {
+      if (!is_array($data)) continue;
+      $data['tags'] = "RockSettings";
+    }
     $rm->migrate([
       'fields' => $fields,
       'templates' => [
