@@ -5,6 +5,7 @@ namespace RockSettings;
 use ProcessWire\FieldtypeFile;
 use ProcessWire\FieldtypePage;
 use ProcessWire\FieldtypeTextarea;
+use ProcessWire\HookEvent;
 use ProcessWire\Inputfield;
 use ProcessWire\Page;
 use RockMigrations\MagicPage;
@@ -41,6 +42,10 @@ class SettingsPage extends Page
   public function init(): void
   {
     $this->wire('settings', settings());
+    $this->addSettingsRedirects();
+    $this->addHookBefore("Pages::trash", $this, "preventSettingsTrash");
+    $this->addHookBefore("Pages::delete", $this, "preventSettingsTrash");
+    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "removeSettingsDelete");
   }
 
   /** magic */
@@ -65,6 +70,35 @@ class SettingsPage extends Page
   }
 
   /** backend */
+
+  /**
+   * Add hooks for short-url feature on settings page
+   */
+  private function addSettingsRedirects(): void
+  {
+    return; // TBD
+
+    // reset cache if field was saved
+    if (
+      $this->wire->page->id === 10 // page edit
+      && $data = $this->wire->input->post('settings_redirects')
+    ) {
+      $data = $this->parseRedirects($data);
+      $this->wire->cache->save('settings-redirects', $data);
+      $this->message("Saved " . count($data) . " redirect rules to cache");
+    }
+
+    // get redirects from cache
+    $redirects = $this->wire->cache->get('settings-redirects');
+    if (!is_array($redirects)) return;
+
+    // add redirect hook for every item
+    foreach ($redirects as $from => $to) {
+      $this->wire->addHook("/$from", function (HookEvent $event) use ($to) {
+        $event->wire->session->redirect($to);
+      });
+    }
+  }
 
   public function migrate()
   {
@@ -215,6 +249,8 @@ class SettingsPage extends Page
             ],
           ], $fields),
           'icon' => 'cogs',
+          'noSettings' => true,
+          'noChildren' => true,
         ],
       ],
     ]);
@@ -225,5 +261,32 @@ class SettingsPage extends Page
       title: 'Settings',
       status: ['hidden'],
     );
+  }
+
+  /**
+   * Allow trashing the settings page only for superusers
+   */
+  protected function preventSettingsTrash(HookEvent $event): void
+  {
+    $page = $event->arguments('page');
+    if (!$page instanceof SettingsPage) return;
+    if ($this->wire->user->isSuperuser()) return;
+    $this->error("Deleting this page is only allowed for superusers!");
+    $event->return = false;
+    $event->replace = true;
+  }
+
+  /**
+   * Remove delete tab of settingspage
+   */
+  protected function removeSettingsDelete(HookEvent $event): void
+  {
+    $page = $event->object->getPage();
+    if (!$page instanceof SettingsPage) return;
+    $form = $event->return;
+    $fieldset = $form->find("id=ProcessPageEditDelete")->first();
+    $form->remove($fieldset);
+    $event->object->removeTab("ProcessPageEditDelete");
+    $event->return = $form;
   }
 }
