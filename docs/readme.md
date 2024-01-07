@@ -2,8 +2,10 @@
 
 <img src=rocksettings.png class=blur>
 
-- You can upload files
-- You can add/remove/change fields as you want
-- Adds $settings API variable and settings() function
-- Adds a settings icon on the right side of your main navbar
-- Adds redirects feature (create short-links like yourdomain.com/example)
+Compared to other modules this module has the benefit that it creates a real page, which means:
+
+- You can access it via $settings or settings() from everywhere
+- You can upload assets like a logo or global images or files
+- You can add/hide/change all the fields of the settings page as you like
+- It adds a settings-icon to the main navbar of the backend
+- It has a redirects feature to create short-links like yourdomain.com/example
