@@ -8,7 +8,9 @@ use ProcessWire\FieldtypeTextarea;
 use ProcessWire\HookEvent;
 use ProcessWire\Inputfield;
 use ProcessWire\InputfieldFieldsetOpen;
+use ProcessWire\InputfieldText;
 use ProcessWire\Page;
+use ProcessWire\RepeaterPage;
 use RockMigrations\MagicPage;
 
 use function ProcessWire\rockmigrations;
@@ -99,7 +101,12 @@ class SettingsPage extends Page
 
   public function hookAddHost(HookEvent $event): void
   {
-    if (!str_starts_with($event->object->name, "title_repeater")) return;
+    $inputfield = $event->object;
+    if (!$inputfield instanceof InputfieldText) return;
+    $page = $inputfield->hasPage;
+    if (!$page instanceof RepeaterPage) return;
+    $forPage = $page->getForPage();
+    if (!$forPage instanceof self) return;
     $markup = $event->return;
     $markup = "<div class='uk-flex uk-flex-middle'>
       <span class='uk-margin-small-right uk-visible@m'>{$this->wire->config->httpHost}/</span>
