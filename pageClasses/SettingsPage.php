@@ -99,7 +99,7 @@ class SettingsPage extends Page
 
   public function hookAddHost(HookEvent $event): void
   {
-    if (!str_starts_with($event->object->name, "title_repeater")) return;
+    if (!str_starts_with((string)$event->object->name, "title_repeater")) return;
     $markup = $event->return;
     $markup = "<div class='uk-flex uk-flex-middle'>
       <span class='uk-margin-small-right uk-visible@m'>{$this->wire->config->httpHost}/</span>
