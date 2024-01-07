@@ -42,7 +42,10 @@ class SettingsPage extends Page
 
   public function init(): void
   {
+    // load the page into the $settings variable
+    // don't use $this here, because $this is a runtime page without data
     $this->wire('settings', settings());
+
     $this->addRedirectHooks();
     $this->addHookBefore("Pages::trash", $this, "preventSettingsTrash");
     $this->addHookBefore("Pages::delete", $this, "preventSettingsTrash");
