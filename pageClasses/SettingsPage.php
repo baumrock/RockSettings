@@ -7,6 +7,7 @@ use ProcessWire\FieldtypePage;
 use ProcessWire\FieldtypeTextarea;
 use ProcessWire\HookEvent;
 use ProcessWire\Inputfield;
+use ProcessWire\InputfieldFieldsetOpen;
 use ProcessWire\Page;
 use RockMigrations\MagicPage;
 
@@ -39,6 +40,10 @@ class SettingsPage extends Page
   const field_topbar      = self::prefix . "topbar";
   const field_footer      = self::prefix . "footer";
   const field_target      = self::prefix . "target";
+  const field_media       = self::prefix . "media";
+  const field_images      = self::prefix . "images";
+  const field_files       = self::prefix . "files";
+  const field_ogimage     = self::prefix . "ogimage";
 
   public function init(): void
   {
@@ -119,6 +124,11 @@ class SettingsPage extends Page
     ]);
 
     $fields = [
+      self::field_media => [
+        'type' => 'FieldsetOpen',
+        'label' => 'Media',
+        'icon' => 'file-image-o',
+      ],
       self::field_logo => [
         'type' => 'image',
         'label' => 'Logo',
@@ -145,6 +155,45 @@ class SettingsPage extends Page
         'gridMode' => 'grid', // left, list
         'columnWidth' => 50,
         'collapsed' => Inputfield::collapsedNo,
+      ],
+      self::field_ogimage => [
+        'type' => 'image',
+        'label' => 'og:image',
+        'notes' => 'You can use this image as fallback for the og:image meta tag.',
+        'maxFiles' => 1,
+        'descriptionRows' => 0,
+        'columnWidth' => 100,
+        'extensions' => 'png jpg jpeg',
+        'maxSize' => 3, // max 3 megapixels
+        'icon' => 'picture-o',
+        'outputFormat' => FieldtypeFile::outputFormatSingle,
+        'collapsed' => Inputfield::collapsedBlank,
+      ],
+      self::field_images => [
+        'type' => 'image',
+        'label' => 'Images',
+        'maxFiles' => 0,
+        'descriptionRows' => 1,
+        'extensions' => 'jpg jpeg gif png svg',
+        'maxSize' => 3, // max 3 megapixels
+        'okExtensions' => ['svg'],
+        'icon' => 'picture-o',
+        'outputFormat' => FieldtypeFile::outputFormatSingle,
+        'gridMode' => 'grid', // left, list
+        'collapsed' => Inputfield::collapsedBlank,
+      ],
+      self::field_files => [
+        'type' => 'file',
+        'label' => 'Files',
+        'maxFiles' => 0,
+        'descriptionRows' => 1,
+        'extensions' => 'pdf zip',
+        'icon' => 'files-o',
+        'outputFormat' => FieldtypeFile::outputFormatArray,
+        'collapsed' => Inputfield::collapsedBlank,
+      ],
+      self::field_media . "_END" => [
+        'type' => 'FieldsetClose',
       ],
 
       self::field_redirects => [
@@ -173,7 +222,7 @@ class SettingsPage extends Page
       self::field_topbar => [
         'type' => 'FieldsetOpen',
         'label' => 'Top-Bar',
-        'collapsed' => Inputfield::collapsedNo,
+        'collapsed' => Inputfield::collapsedYes,
       ],
       self::field_phone => [
         'type' => 'text',
@@ -227,7 +276,7 @@ class SettingsPage extends Page
       self::field_footer => [
         'type' => 'FieldsetOpen',
         'label' => 'Footer',
-        'collapsed' => Inputfield::collapsedNo,
+        'collapsed' => Inputfield::collapsedYes,
       ],
       self::field_contact => [
         'type' => 'textarea',
@@ -332,22 +381,13 @@ class SettingsPage extends Page
 
     // add superuser notes
     if ($this->wire->user->isSuperuser()) {
-      $notes = [
-        self::field_logo,
-        self::field_favicon,
-        self::field_phone,
-        self::field_mail,
-        self::field_facebook,
-        self::field_insta,
-        self::field_linkedin,
-        self::field_contact,
-        self::field_hours,
-        self::field_footerlinks,
-      ];
+      $notes = $page->fields->each('name');
       foreach ($notes as $name) {
         if ($f = $form->get($name)) {
+          if ($f instanceof InputfieldFieldsetOpen) continue;
           $parts = explode("_", $name);
           $short = end($parts);
+          if ($short == "redirects") continue;
           $f->notes = trim($f->notes . "\nAPI: \$settings->$short()");
         }
       }
