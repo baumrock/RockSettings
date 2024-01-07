@@ -1,4 +1,11 @@
-## 1.1.0 (2024-01-07)
+## [1.2.0](https://github.com/baumrock/RockSettings/compare/v1.1.0...v1.2.0) (2024-01-07)
+
+
+### Features
+
+* add media fields (images, files, og:image) ([8ac47a7](https://github.com/baumrock/RockSettings/commit/8ac47a76b3644e9038e00b566519f7cd5361fb65))
+
+## [1.1.0](https://github.com/baumrock/RockSettings/compare/38ad396a57e12617c63ed6b40c8fb48c9c13ccfd...v1.1.0) (2024-01-07)
 
 
 ### Features
