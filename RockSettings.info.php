@@ -11,6 +11,6 @@ $info = [
   'icon' => 'cogs',
   'requires' => [
     'PHP>=8.1',
-    'RockMigrations>=3.35.0',
+    'RockMigrations>=3.35',
   ],
 ];

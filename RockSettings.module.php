@@ -27,7 +27,7 @@ class RockSettings extends WireData implements Module
       $icon = "<a
           href='{$settingsPage->editUrl()}'
           class='uk-link-reset'
-          title='Settings' uk-tooltip
+          title='Settings' uk-tooltip='pos:bottom'
         >
         <i class='fa fa-cogs'></i>
         </a>";

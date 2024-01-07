@@ -15,7 +15,7 @@ use function ProcessWire\wire;
 
 function settings(): SettingsPage|Page
 {
-  return wire()->pages->get('/settings');
+  return wire()->pages->get('/rocksettings');
 }
 
 class SettingsPage extends Page
@@ -25,27 +25,30 @@ class SettingsPage extends Page
   const tpl = "rocksettings";
   const prefix = "rocksettings_";
 
-  const field_logo = self::prefix . "logo";
-  const field_favicon = self::prefix . "favicon";
-  const field_redirects = self::prefix . "redirects";
-  const field_phone = self::prefix . "phone";
-  const field_mail = self::prefix . "mail";
-  const field_facebook = self::prefix . "facebook";
-  const field_insta = self::prefix . "insta";
-  const field_linkedin = self::prefix . "linkedin";
-  const field_contact = self::prefix . "contact";
-  const field_hours = self::prefix . "hours";
+  const field_logo        = self::prefix . "logo";
+  const field_favicon     = self::prefix . "favicon";
+  const field_redirects   = self::prefix . "redirects";
+  const field_phone       = self::prefix . "phone";
+  const field_mail        = self::prefix . "mail";
+  const field_facebook    = self::prefix . "facebook";
+  const field_insta       = self::prefix . "insta";
+  const field_linkedin    = self::prefix . "linkedin";
+  const field_contact     = self::prefix . "contact";
+  const field_hours       = self::prefix . "hours";
   const field_footerlinks = self::prefix . "footerlinks";
-  const field_topbar = self::prefix . "topbar";
-  const field_footer = self::prefix . "footer";
+  const field_topbar      = self::prefix . "topbar";
+  const field_footer      = self::prefix . "footer";
+  const field_target      = self::prefix . "target";
 
   public function init(): void
   {
     $this->wire('settings', settings());
-    $this->addSettingsRedirects();
+    $this->addRedirectHooks();
     $this->addHookBefore("Pages::trash", $this, "preventSettingsTrash");
     $this->addHookBefore("Pages::delete", $this, "preventSettingsTrash");
-    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "removeSettingsDelete");
+    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "hookBuildForm");
+    $this->addHookAfter("Inputfield::render", $this, "hookAddHost");
+    $this->addHookAfter("Pages::saved", $this, "saveRedirects");
   }
 
   /** magic */
@@ -74,35 +77,43 @@ class SettingsPage extends Page
   /**
    * Add hooks for short-url feature on settings page
    */
-  private function addSettingsRedirects(): void
+  private function addRedirectHooks(): void
   {
-    return; // TBD
-
-    // reset cache if field was saved
-    if (
-      $this->wire->page->id === 10 // page edit
-      && $data = $this->wire->input->post('settings_redirects')
-    ) {
-      $data = $this->parseRedirects($data);
-      $this->wire->cache->save('settings-redirects', $data);
-      $this->message("Saved " . count($data) . " redirect rules to cache");
-    }
-
-    // get redirects from cache
-    $redirects = $this->wire->cache->get('settings-redirects');
-    if (!is_array($redirects)) return;
-
-    // add redirect hook for every item
+    $page = settings();
+    if (!$page->id) return;
+    $redirects = $page->meta('redirects') ?: [];
     foreach ($redirects as $from => $to) {
-      $this->wire->addHook("/$from", function (HookEvent $event) use ($to) {
-        $event->wire->session->redirect($to);
+      $this->wire->addHook("/$from", function () use ($to) {
+        $this->wire->session->redirect($to);
       });
     }
+  }
+
+  public function hookAddHost(HookEvent $event): void
+  {
+    if (!str_starts_with($event->object->name, "title_repeater")) return;
+    $markup = $event->return;
+    $markup = "<div class='uk-flex uk-flex-middle'>
+      <span class='uk-margin-small-right uk-visible@m'>{$this->wire->config->httpHost}/</span>
+      $markup
+      </div>";
+    $event->return = $markup;
   }
 
   public function migrate()
   {
     $rm = rockmigrations();
+
+    $rm->createField(self::field_target, [
+      'type' => 'URL',
+      'label' => 'Target',
+      'icon' => 'bullseye',
+      'textformatters' => [
+        'TextformatterEntities',
+      ],
+      'required' => true,
+      'tags' => 'RockSettings',
+    ]);
 
     $fields = [
       self::field_logo => [
@@ -117,6 +128,7 @@ class SettingsPage extends Page
         'outputFormat' => FieldtypeFile::outputFormatSingle,
         'gridMode' => 'grid', // left, list
         'columnWidth' => 50,
+        'collapsed' => Inputfield::collapsedNo,
       ],
       self::field_favicon => [
         'type' => 'image',
@@ -129,22 +141,36 @@ class SettingsPage extends Page
         'outputFormat' => FieldtypeFile::outputFormatSingle,
         'gridMode' => 'grid', // left, list
         'columnWidth' => 50,
+        'collapsed' => Inputfield::collapsedNo,
       ],
 
       self::field_redirects => [
-        'type' => 'textarea',
         'label' => 'Redirects',
-        'rows' => 5,
-        'icon' => 'forward',
-        'notes' => "Enter one redirect per line.
-          example --> https://www.example.com",
+        'type' => 'FieldtypeRepeater',
+        'fields' => [
+          'title' => [
+            'label' => 'Url-Segment',
+            'columnWidth' => 50,
+          ],
+          self::field_target => [
+            'columnWidth' => 50,
+          ],
+        ],
+        'repeaterTitle' => '{title} ➜ {' . self::field_target . '}',
+        'familyFriendly' => 1,
+        'repeaterDepth' => 0,
+        'repeaterAddLabel' => 'Add New Item',
+        'columnWidth' => 100,
         'collapsed' => Inputfield::collapsedBlank,
+        'icon' => 'forward',
+        'notes' => '',
       ],
 
       // top-bar
       self::field_topbar => [
         'type' => 'FieldsetOpen',
         'label' => 'Top-Bar',
+        'collapsed' => Inputfield::collapsedNo,
       ],
       self::field_phone => [
         'type' => 'text',
@@ -198,6 +224,7 @@ class SettingsPage extends Page
       self::field_footer => [
         'type' => 'FieldsetOpen',
         'label' => 'Footer',
+        'collapsed' => Inputfield::collapsedNo,
       ],
       self::field_contact => [
         'type' => 'textarea',
@@ -261,6 +288,16 @@ class SettingsPage extends Page
       title: 'Settings',
       status: ['hidden'],
     );
+
+    // make redirects be single-language
+    $tpl = $rm->getRepeaterTemplate(self::field_redirects);
+    $rm->setTemplateData($tpl, ['noLang' => true]);
+
+    // if the Site module is installed we trigger Site::migrateSettingsPage
+    $site = $this->wire->modules->get('Site');
+    if ($site and method_exists($site, "migrateSettingsPage")) {
+      $site->migrateSettingsPage($this);
+    }
   }
 
   /**
@@ -277,16 +314,53 @@ class SettingsPage extends Page
   }
 
   /**
-   * Remove delete tab of settingspage
+   * Modifications for the page editor
    */
-  protected function removeSettingsDelete(HookEvent $event): void
+  protected function hookBuildForm(HookEvent $event): void
   {
     $page = $event->object->getPage();
     if (!$page instanceof SettingsPage) return;
     $form = $event->return;
+
+    // remove settings tab
     $fieldset = $form->find("id=ProcessPageEditDelete")->first();
-    $form->remove($fieldset);
     $event->object->removeTab("ProcessPageEditDelete");
+    $form->remove($fieldset);
+
+    // add superuser notes
+    if ($this->wire->user->isSuperuser()) {
+      $notes = [
+        self::field_logo,
+        self::field_favicon,
+        self::field_phone,
+        self::field_mail,
+        self::field_facebook,
+        self::field_insta,
+        self::field_linkedin,
+        self::field_contact,
+        self::field_hours,
+        self::field_footerlinks,
+      ];
+      foreach ($notes as $name) {
+        if ($f = $form->get($name)) {
+          $parts = explode("_", $name);
+          $short = end($parts);
+          $f->notes = trim($f->notes . "\nAPI: \$settings->$short()");
+        }
+      }
+    }
+
     $event->return = $form;
+  }
+
+  protected function saveRedirects(HookEvent $event): void
+  {
+    $page = $event->arguments('page');
+    if (!$page instanceof self) return;
+    $arr = [];
+    foreach ($page->getFormatted(self::field_redirects) as $item) {
+      $arr[(string)$item->title] = $item->getFormatted(self::field_target);
+    }
+    $page->meta('redirects', $arr);
   }
 }
