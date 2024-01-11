@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/baumrock/RockSettings/compare/v1.3.0...v1.3.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* hide settings from new page creation ([1a78f10](https://github.com/baumrock/RockSettings/commit/1a78f10b40615a65529473ead6323d631eeb3603))
+
 ## [1.3.0](https://github.com/baumrock/RockSettings/compare/v1.2.0...v1.3.0) (2024-01-07)
 
 
