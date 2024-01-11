@@ -337,6 +337,7 @@ class SettingsPage extends Page
           'icon' => 'cogs',
           'noSettings' => true,
           'noChildren' => true,
+          'noParents' => -1, // only one page allowed
         ],
       ],
     ]);
