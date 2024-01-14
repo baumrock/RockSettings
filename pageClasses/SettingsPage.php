@@ -54,11 +54,11 @@ class SettingsPage extends Page
     $this->wire('settings', settings());
 
     $this->addRedirectHooks();
-    $this->addHookBefore("Pages::trash", $this, "preventSettingsTrash");
-    $this->addHookBefore("Pages::delete", $this, "preventSettingsTrash");
-    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "hookBuildForm");
-    $this->addHookAfter("Inputfield::render", $this, "hookAddHost");
-    $this->addHookAfter("Pages::saved", $this, "saveRedirects");
+    wire()->addHookBefore("Pages::trash",              $this, "preventSettingsTrash");
+    wire()->addHookBefore("Pages::delete",             $this, "preventSettingsTrash");
+    wire()->addHookAfter("ProcessPageEdit::buildForm", $this, "hookBuildForm");
+    wire()->addHookAfter("Inputfield::render",         $this, "hookAddHost");
+    wire()->addHookAfter("Pages::saved",               $this, "saveRedirects");
   }
 
   /** magic */
