@@ -46,6 +46,7 @@ class SettingsPage extends Page
   const field_images      = self::prefix . "images";
   const field_files       = self::prefix . "files";
   const field_ogimage     = self::prefix . "ogimage";
+  const field_x           = self::prefix . "x";
 
   public function init(): void
   {
@@ -256,7 +257,7 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 33,
+        'columnWidth' => 25,
       ],
       self::field_insta => [
         'type' => 'URL',
@@ -265,7 +266,7 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 33,
+        'columnWidth' => 25,
       ],
       self::field_linkedin => [
         'type' => 'URL',
@@ -274,7 +275,16 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 33,
+        'columnWidth' => 25,
+      ],
+      self::field_x => [
+        'type' => 'URL',
+        'label' => 'X (Twitter)',
+        'icon' => '',
+        'textformatters' => [
+          'TextformatterEntities',
+        ],
+        'columnWidth' => 25,
       ],
       self::field_topbar . "_END" => [
         'type' => 'FieldsetClose',
@@ -396,7 +406,7 @@ class SettingsPage extends Page
           $parts = explode("_", $name);
           $short = end($parts);
           if ($short == "redirects") continue;
-          $f->notes = trim($f->notes . "\nAPI: \$settings->$short()");
+          $f->notes = trim($f->notes . "\nAPI: \$rocksettings->$short()");
         }
       }
     }
