@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/baumrock/RockSettings/compare/v1.3.1...v2.0.0) (2024-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename API var to rocksettings
+
+### Features
+
+* rename API var to rocksettings ([d42a88f](https://github.com/baumrock/RockSettings/commit/d42a88f3fa761ba6cafc1e8a64dc3cbcfa7e06d7))
+
 ## [1.3.1](https://github.com/baumrock/RockSettings/compare/v1.3.0...v1.3.1) (2024-01-11)
 
 
