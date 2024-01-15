@@ -16,7 +16,7 @@ use RockMigrations\MagicPage;
 use function ProcessWire\rockmigrations;
 use function ProcessWire\wire;
 
-function settings(): SettingsPage|Page
+function rocksettings(): SettingsPage|Page
 {
   return wire()->pages->get('/rocksettings');
 }
@@ -51,14 +51,14 @@ class SettingsPage extends Page
   {
     // load the page into the $settings variable
     // don't use $this here, because $this is a runtime page without data
-    $this->wire('settings', settings());
+    $this->wire('rocksettings', rocksettings());
 
     $this->addRedirectHooks();
-    $this->addHookBefore("Pages::trash", $this, "preventSettingsTrash");
-    $this->addHookBefore("Pages::delete", $this, "preventSettingsTrash");
-    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "hookBuildForm");
-    $this->addHookAfter("Inputfield::render", $this, "hookAddHost");
-    $this->addHookAfter("Pages::saved", $this, "saveRedirects");
+    wire()->addHookBefore("Pages::trash",              $this, "preventSettingsTrash");
+    wire()->addHookBefore("Pages::delete",             $this, "preventSettingsTrash");
+    wire()->addHookAfter("ProcessPageEdit::buildForm", $this, "hookBuildForm");
+    wire()->addHookAfter("Inputfield::render",         $this, "hookAddHost");
+    wire()->addHookAfter("Pages::saved",               $this, "saveRedirects");
   }
 
   /** magic */
@@ -89,7 +89,7 @@ class SettingsPage extends Page
    */
   private function addRedirectHooks(): void
   {
-    $page = settings();
+    $page = rocksettings();
     if (!$page->id) return;
     $redirects = $page->meta('redirects') ?: [];
     foreach ($redirects as $from => $to) {
