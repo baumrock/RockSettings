@@ -29,7 +29,6 @@ class SettingsPage extends Page
   const prefix = "rocksettings_";
 
   const field_logo        = self::prefix . "logo";
-  const field_favicon     = self::prefix . "favicon";
   const field_redirects   = self::prefix . "redirects";
   const field_phone       = self::prefix . "phone";
   const field_mail        = self::prefix . "mail";
@@ -119,6 +118,7 @@ class SettingsPage extends Page
   public function migrate()
   {
     $rm = rockmigrations();
+    $rm->deleteField(self::prefix . "favicon", true);
 
     $rm->createField(self::field_target, [
       'type' => 'URL',
@@ -148,20 +148,7 @@ class SettingsPage extends Page
         'icon' => 'picture-o',
         'outputFormat' => FieldtypeFile::outputFormatSingle,
         'gridMode' => 'grid', // left, list
-        'columnWidth' => 50,
-        'collapsed' => Inputfield::collapsedNo,
-      ],
-      self::field_favicon => [
-        'type' => 'image',
-        'label' => 'Favicon',
-        'maxFiles' => 1,
-        'descriptionRows' => 0,
-        'extensions' => 'png svg ico',
-        'okExtensions' => ['svg'],
-        'icon' => 'picture-o',
-        'outputFormat' => FieldtypeFile::outputFormatSingle,
-        'gridMode' => 'grid', // left, list
-        'columnWidth' => 50,
+        'columnWidth' => 100,
         'collapsed' => Inputfield::collapsedNo,
       ],
       self::field_ogimage => [
