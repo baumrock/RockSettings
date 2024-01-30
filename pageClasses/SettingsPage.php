@@ -66,6 +66,16 @@ class SettingsPage extends Page
 
   /** frontend */
 
+  public function facebook(): string
+  {
+    return $this->getFormatted(self::field_facebook);
+  }
+
+  public function insta(): string
+  {
+    return $this->getFormatted(self::field_insta);
+  }
+
   public function mail($link = false): string
   {
     $mail = $this->getFormatted(self::field_mail);
@@ -81,6 +91,16 @@ class SettingsPage extends Page
       return "tel:$link";
     }
     return $phone;
+  }
+
+  public function x(): string
+  {
+    return $this->getFormatted(self::field_x);
+  }
+
+  public function youtube(): string
+  {
+    return $this->getFormatted(self::field_youtube);
   }
 
   /** backend */
