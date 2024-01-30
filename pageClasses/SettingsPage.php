@@ -46,6 +46,7 @@ class SettingsPage extends Page
   const field_files       = self::prefix . "files";
   const field_ogimage     = self::prefix . "ogimage";
   const field_x           = self::prefix . "x";
+  const field_youtube     = self::prefix . "youtube";
 
   public function init(): void
   {
@@ -67,7 +68,7 @@ class SettingsPage extends Page
 
   public function mail($link = false): string
   {
-    $mail = $this->getFormatted('email');
+    $mail = $this->getFormatted(self::field_mail);
     if ($link) return "mailto:$mail";
     return $mail;
   }
@@ -244,7 +245,7 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 25,
+        'columnWidth' => 33,
       ],
       self::field_insta => [
         'type' => 'URL',
@@ -253,7 +254,7 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 25,
+        'columnWidth' => 33,
       ],
       self::field_linkedin => [
         'type' => 'URL',
@@ -262,16 +263,26 @@ class SettingsPage extends Page
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 25,
+        'columnWidth' => 33,
       ],
+
       self::field_x => [
         'type' => 'URL',
         'label' => 'X (Twitter)',
-        'icon' => '',
+        'icon' => 'twitter-square',
         'textformatters' => [
           'TextformatterEntities',
         ],
-        'columnWidth' => 25,
+        'columnWidth' => 50,
+      ],
+      self::field_youtube => [
+        'type' => 'URL',
+        'label' => 'YouTube',
+        'icon' => 'youtube',
+        'textformatters' => [
+          'TextformatterEntities',
+        ],
+        'columnWidth' => 50,
       ],
       self::field_topbar . "_END" => [
         'type' => 'FieldsetClose',
@@ -394,6 +405,8 @@ class SettingsPage extends Page
           $short = end($parts);
           if ($short == "redirects") continue;
           $f->notes = trim($f->notes . "\nAPI: \$rocksettings->$short()");
+          if ($short == "phone") $f->notes .= "\nAPI: \$rocksettings->$short(true) for tel:... link in href";
+          if ($short == "mail") $f->notes .= "\nAPI: \$rocksettings->$short(true) for mailto:... link in href";
         }
       }
     }
