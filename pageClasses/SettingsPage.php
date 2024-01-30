@@ -168,7 +168,7 @@ class SettingsPage extends Page
         'okExtensions' => ['svg'],
         'icon' => 'picture-o',
         'outputFormat' => FieldtypeFile::outputFormatSingle,
-        'gridMode' => 'grid', // left, list
+        'gridMode' => 'list', //'grid', left, list
         'columnWidth' => 100,
         'collapsed' => Inputfield::collapsedNo,
       ],
