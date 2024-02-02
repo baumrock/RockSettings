@@ -5,7 +5,7 @@ namespace ProcessWire;
 $info = [
   'title' => 'RockSettings',
   'version' => json_decode(file_get_contents(__DIR__ . "/package.json"))->version,
-  'summary' => 'Creates a dedicated SettingsPage with common fields and features',
+  'summary' => 'Manage common site settings like a boss 😎🤘',
   'autoload' => true,
   'singular' => true,
   'icon' => 'cogs',
