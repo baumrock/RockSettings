@@ -353,15 +353,16 @@ class SettingsPage extends Page
       if (!is_array($data)) continue;
       $data['tags'] = "RockSettings";
     }
+    $fieldsTemplateContext = array_merge([
+      'title' => [
+        'collapsed' => Inputfield::collapsedHidden,
+      ],
+    ], array_keys($fields));
     $rm->migrate([
       'fields' => $fields,
       'templates' => [
         self::tpl => [
-          'fields' => array_merge([
-            'title' => [
-              'collapsed' => Inputfield::collapsedHidden,
-            ],
-          ], $fields),
+          'fields' => $fieldsTemplateContext,
           'icon' => 'cogs',
           'noSettings' => true,
           'noChildren' => true,
