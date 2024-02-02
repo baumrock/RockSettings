@@ -1,3 +1,18 @@
+## [2.1.0](https://github.com/baumrock/RockSettings/compare/v2.0.1...v2.1.0) (2024-02-02)
+
+
+### Features
+
+* add youtube field ([a16e6c9](https://github.com/baumrock/RockSettings/commit/a16e6c9884c9cb7bf673d71471d7b77db0223d75))
+
+
+### Bug Fixes
+
+* change logo style to list ([d8066e0](https://github.com/baumrock/RockSettings/commit/d8066e0c07b0b9c22dc7250920eaf97175ad3922))
+* field settings falsely applied in template context ([241274b](https://github.com/baumrock/RockSettings/commit/241274b1fba2c731929ec09951721a06a3856c39))
+* remove favicon field ([b230f7d](https://github.com/baumrock/RockSettings/commit/b230f7dd50b9a52f5e92b81a74138f469abe2468))
+* social fields returning editable markup ([5c7721e](https://github.com/baumrock/RockSettings/commit/5c7721ec38575ff2f65d4d917aa23b5b71c65624))
+
 ## [2.0.1](https://github.com/baumrock/RockSettings/compare/v2.0.0...v2.0.1) (2024-01-15)
 
 
@@ -35,11 +50,4 @@
 
 * prevent passing null error ([5ce26af](https://github.com/baumrock/RockSettings/commit/5ce26af4c54657b4902a04030656234fc1b7bcb5))
 * redirect host added to all title fields ([21072f3](https://github.com/baumrock/RockSettings/commit/21072f393614c1e7274e62971da16d73a9e3463f))
-
-## [1.2.0](https://github.com/baumrock/RockSettings/compare/v1.1.0...v1.2.0) (2024-01-07)
-
-
-### Features
-
-* add media fields (images, files, og:image) ([8ac47a7](https://github.com/baumrock/RockSettings/commit/8ac47a76b3644e9038e00b566519f7cd5361fb65))
 
