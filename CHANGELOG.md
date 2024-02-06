@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/baumrock/RockSettings/compare/v2.1.0...v2.1.1) (2024-02-06)
+
+
+### Bug Fixes
+
+* fix wrong return type ([78375e0](https://github.com/baumrock/RockSettings/commit/78375e098db2116d9711301df1568d64c34c5346))
+
 ## [2.1.0](https://github.com/baumrock/RockSettings/compare/v2.0.1...v2.1.0) (2024-02-02)
 
 
@@ -37,17 +44,4 @@
 ### Bug Fixes
 
 * hide settings from new page creation ([1a78f10](https://github.com/baumrock/RockSettings/commit/1a78f10b40615a65529473ead6323d631eeb3603))
-
-## [1.3.0](https://github.com/baumrock/RockSettings/compare/v1.2.0...v1.3.0) (2024-01-07)
-
-
-### Features
-
-* add setting to show/hide page in tree ([e5e9dc1](https://github.com/baumrock/RockSettings/commit/e5e9dc197b4c46f432962f8a55ee055b0e48479f))
-
-
-### Bug Fixes
-
-* prevent passing null error ([5ce26af](https://github.com/baumrock/RockSettings/commit/5ce26af4c54657b4902a04030656234fc1b7bcb5))
-* redirect host added to all title fields ([21072f3](https://github.com/baumrock/RockSettings/commit/21072f393614c1e7274e62971da16d73a9e3463f))
 
