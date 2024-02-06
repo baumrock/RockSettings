@@ -68,24 +68,24 @@ class SettingsPage extends Page
 
   public function facebook(): string
   {
-    return $this->getFormatted(self::field_facebook);
+    return $this->getFormatted(self::field_facebook) ?: '';
   }
 
   public function insta(): string
   {
-    return $this->getFormatted(self::field_insta);
+    return $this->getFormatted(self::field_insta) ?: '';
   }
 
   public function mail($link = false): string
   {
-    $mail = $this->getFormatted(self::field_mail);
+    $mail = $this->getFormatted(self::field_mail) ?: '';
     if ($link) return "mailto:$mail";
     return $mail;
   }
 
   public function phone($link = false): string
   {
-    $phone = $this->getFormatted(self::field_phone);
+    $phone = $this->getFormatted(self::field_phone) ?: '';
     if ($link) {
       $link = str_replace([' ', '/', '-', '(', ')'], '', $phone);
       return "tel:$link";
@@ -95,12 +95,12 @@ class SettingsPage extends Page
 
   public function x(): string
   {
-    return $this->getFormatted(self::field_x);
+    return $this->getFormatted(self::field_x) ?: '';
   }
 
   public function youtube(): string
   {
-    return $this->getFormatted(self::field_youtube);
+    return $this->getFormatted(self::field_youtube) ?: '';
   }
 
   /** backend */
