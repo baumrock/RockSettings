@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/baumrock/RockSettings/compare/v2.1.1...v2.2.0) (2024-03-12)
+
+
+### Features
+
+* add phoneTag() and mailTag() methods ([e17e282](https://github.com/baumrock/RockSettings/commit/e17e282a5f5d134acc9176d4ab4aeb62a0e97b58))
+
 ## [2.1.1](https://github.com/baumrock/RockSettings/compare/v2.1.0...v2.1.1) (2024-02-06)
 
 
@@ -37,11 +44,4 @@
 ### Features
 
 * rename API var to rocksettings ([d42a88f](https://github.com/baumrock/RockSettings/commit/d42a88f3fa761ba6cafc1e8a64dc3cbcfa7e06d7))
-
-## [1.3.1](https://github.com/baumrock/RockSettings/compare/v1.3.0...v1.3.1) (2024-01-11)
-
-
-### Bug Fixes
-
-* hide settings from new page creation ([1a78f10](https://github.com/baumrock/RockSettings/commit/1a78f10b40615a65529473ead6323d631eeb3603))
 
