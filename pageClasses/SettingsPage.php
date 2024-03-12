@@ -83,6 +83,13 @@ class SettingsPage extends Page
     return $mail;
   }
 
+  public function mailTag(): string
+  {
+    $href = $this->mail(true);
+    $mail = $this->mail();
+    return "<a href='$href'>$mail</a>";
+  }
+
   public function phone($link = false): string
   {
     $phone = $this->getFormatted(self::field_phone) ?: '';
@@ -91,6 +98,13 @@ class SettingsPage extends Page
       return "tel:$link";
     }
     return $phone;
+  }
+
+  public function phoneTag(): string
+  {
+    $href = $this->phone(true);
+    $num = $this->phone();
+    return "<a href='$href'>$num</a>";
   }
 
   public function x(): string
@@ -426,8 +440,14 @@ class SettingsPage extends Page
           $short = end($parts);
           if ($short == "redirects") continue;
           $f->notes = trim($f->notes . "\nAPI: \$rocksettings->$short()");
-          if ($short == "phone") $f->notes .= "\nAPI: \$rocksettings->$short(true) for tel:... link in href";
-          if ($short == "mail") $f->notes .= "\nAPI: \$rocksettings->$short(true) for mailto:... link in href";
+          if ($short == "phone") {
+            $f->notes .= "\nAPI: \$rocksettings->$short(true) for tel:... link in href";
+            $f->notes .= "\nAPI: \$rocksettings->phoneTag() for <a href=tel:...>...</a>";
+          }
+          if ($short == "mail") {
+            $f->notes .= "\nAPI: \$rocksettings->$short(true) for mailto:... link in href";
+            $f->notes .= "\nAPI: \$rocksettings->mailTag() for <a href=mailto:...>...</a>";
+          }
         }
       }
     }
