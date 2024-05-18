@@ -137,6 +137,10 @@ class SettingsPage extends Page
   public function hookAddHost(HookEvent $event): void
   {
     $inputfield = $event->object;
+    if (
+      strpos($inputfield->name, 'rocksettings_target_repeater') !== 0
+      && strpos($inputfield->name, 'title_repeater') !== 0
+    ) return;
     if (!$inputfield instanceof InputfieldText) return;
     $page = $inputfield->hasPage;
     if (!$page instanceof RepeaterPage) return;
@@ -171,6 +175,7 @@ class SettingsPage extends Page
         'type' => 'FieldsetOpen',
         'label' => 'Media',
         'icon' => 'file-image-o',
+        'collapsed' => Inputfield::collapsedYes,
       ],
       self::field_logo => [
         'type' => 'image',
