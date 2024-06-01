@@ -137,10 +137,8 @@ class SettingsPage extends Page
   public function hookAddHost(HookEvent $event): void
   {
     $inputfield = $event->object;
-    if (
-      strpos($inputfield->name, 'rocksettings_target_repeater') !== 0
-      && strpos($inputfield->name, 'title_repeater') !== 0
-    ) return;
+    if (!$inputfield->name) return;
+    if (strpos($inputfield->name, 'title_repeater') !== 0) return;
     if (!$inputfield instanceof InputfieldText) return;
     $page = $inputfield->hasPage;
     if (!$page instanceof RepeaterPage) return;
