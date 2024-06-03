@@ -1,3 +1,11 @@
+## [2.2.1](https://github.com/baumrock/RockSettings/compare/v2.2.0...v2.2.1) (2024-06-03)
+
+
+### Bug Fixes
+
+* dont add host on some fields ([0696ae4](https://github.com/baumrock/RockSettings/commit/0696ae4cd4151e4b5bf20525e7e0aa8396e66d99))
+* host in redirects wrong ([5c42e91](https://github.com/baumrock/RockSettings/commit/5c42e9122e1aa386e3f3fa745027a7fc183e185d))
+
 ## [2.2.0](https://github.com/baumrock/RockSettings/compare/v2.1.1...v2.2.0) (2024-03-12)
 
 
@@ -33,15 +41,4 @@
 ### Bug Fixes
 
 * show new api instructions ([f8f2298](https://github.com/baumrock/RockSettings/commit/f8f22985b4d0c9e4aff5fb36ad31e2802cfb6127))
-
-## [2.0.0](https://github.com/baumrock/RockSettings/compare/v1.3.1...v2.0.0) (2024-01-15)
-
-
-### ⚠ BREAKING CHANGES
-
-* rename API var to rocksettings
-
-### Features
-
-* rename API var to rocksettings ([d42a88f](https://github.com/baumrock/RockSettings/commit/d42a88f3fa761ba6cafc1e8a64dc3cbcfa7e06d7))
 
