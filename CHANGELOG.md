@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/baumrock/RockSettings/compare/v2.2.1...v2.2.2) (2024-10-15)
+
+
+### Bug Fixes
+
+* make it work both with CKE and TinyMCE ([4ba52c9](https://github.com/baumrock/RockSettings/commit/4ba52c9a562056a4fc82ba1d006e8ad0bb47de09))
+
 ## [2.2.1](https://github.com/baumrock/RockSettings/compare/v2.2.0...v2.2.1) (2024-06-03)
 
 
@@ -34,11 +41,4 @@
 * field settings falsely applied in template context ([241274b](https://github.com/baumrock/RockSettings/commit/241274b1fba2c731929ec09951721a06a3856c39))
 * remove favicon field ([b230f7d](https://github.com/baumrock/RockSettings/commit/b230f7dd50b9a52f5e92b81a74138f469abe2468))
 * social fields returning editable markup ([5c7721e](https://github.com/baumrock/RockSettings/commit/5c7721ec38575ff2f65d4d917aa23b5b71c65624))
-
-## [2.0.1](https://github.com/baumrock/RockSettings/compare/v2.0.0...v2.0.1) (2024-01-15)
-
-
-### Bug Fixes
-
-* show new api instructions ([f8f2298](https://github.com/baumrock/RockSettings/commit/f8f22985b4d0c9e4aff5fb36ad31e2802cfb6127))
 
