@@ -134,6 +134,16 @@ class SettingsPage extends Page
     }
   }
 
+  /**
+   * returns module class of installed RTE editor inputfields: InputfieldTinyMCE or InputfieldTinyMCE
+   * @return string Inputfield Class
+   */
+  protected function getRTEModuleClass(): string
+  {
+    if (wire()->modules->isInstalled('InputfieldTinyMCE')) return 'InputfieldTinyMCE';
+    if (wire()->modules->isInstalled('InputfieldCKEditor')) return 'InputfieldCKEditor';
+  }
+
   public function hookAddHost(HookEvent $event): void
   {
     $inputfield = $event->object;
@@ -332,24 +342,28 @@ class SettingsPage extends Page
       ],
       self::field_contact => [
         'type' => 'textarea',
-        'inputfieldClass' => 'InputfieldTinyMCE',
+        'inputfieldClass' => $this->getRTEModuleClass(),
         'contentType' => FieldtypeTextarea::contentTypeHTML,
         'label' => 'Contact',
         'rows' => 5,
         'icon' => 'map-pin',
         'inlineMode' => true,
-        'settingsFile' => '/site/modules/RockMigrations/TinyMCE/simple.json',
+        'settingsFile' => $this->getRTEModuleClass() === 'InputfieldTinyMCE'
+          ? '/site/modules/RockMigrations/TinyMCE/simple.json'
+          : '',
         'columnWidth' => 33,
       ],
       self::field_hours => [
         'type' => 'textarea',
-        'inputfieldClass' => 'InputfieldTinyMCE',
+        'inputfieldClass' => $this->getRTEModuleClass(),
         'contentType' => FieldtypeTextarea::contentTypeHTML,
         'label' => 'Opening Hours',
         'rows' => 5,
         'icon' => 'clock-o',
         'inlineMode' => true,
-        'settingsFile' => '/site/modules/RockMigrations/TinyMCE/simple.json',
+        'settingsFile' => $this->getRTEModuleClass() === 'InputfieldTinyMCE'
+          ? '/site/modules/RockMigrations/TinyMCE/simple.json'
+          : '',
         'columnWidth' => 33,
       ],
       self::field_footerlinks => [
