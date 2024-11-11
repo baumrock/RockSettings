@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/baumrock/RockSettings/compare/v2.2.2...v2.2.3) (2024-11-11)
+
+
+### Bug Fixes
+
+* add missing uninstall routine ([895cee4](https://github.com/baumrock/RockSettings/commit/895cee4976fbd2783cf9127c435bbfc143853e25))
+
 ## [2.2.2](https://github.com/baumrock/RockSettings/compare/v2.2.1...v2.2.2) (2024-10-15)
 
 
@@ -26,19 +33,4 @@
 ### Bug Fixes
 
 * fix wrong return type ([78375e0](https://github.com/baumrock/RockSettings/commit/78375e098db2116d9711301df1568d64c34c5346))
-
-## [2.1.0](https://github.com/baumrock/RockSettings/compare/v2.0.1...v2.1.0) (2024-02-02)
-
-
-### Features
-
-* add youtube field ([a16e6c9](https://github.com/baumrock/RockSettings/commit/a16e6c9884c9cb7bf673d71471d7b77db0223d75))
-
-
-### Bug Fixes
-
-* change logo style to list ([d8066e0](https://github.com/baumrock/RockSettings/commit/d8066e0c07b0b9c22dc7250920eaf97175ad3922))
-* field settings falsely applied in template context ([241274b](https://github.com/baumrock/RockSettings/commit/241274b1fba2c731929ec09951721a06a3856c39))
-* remove favicon field ([b230f7d](https://github.com/baumrock/RockSettings/commit/b230f7dd50b9a52f5e92b81a74138f469abe2468))
-* social fields returning editable markup ([5c7721e](https://github.com/baumrock/RockSettings/commit/5c7721ec38575ff2f65d4d917aa23b5b71c65624))
 
