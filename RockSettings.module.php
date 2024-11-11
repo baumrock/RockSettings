@@ -50,6 +50,21 @@ class RockSettings extends WireData implements Module, ConfigurableModule
   }
 
   /**
+   * Config inputfields
+   * @param InputfieldWrapper $inputfields
+   */
+  public function getModuleConfigInputfields($inputfields)
+  {
+    $inputfields->add([
+      'type' => 'checkbox',
+      'name' => 'showPage',
+      'label' => 'Show SettingsPage in Pagetree',
+      'checked' => $this->showPage ? 'checked' : '',
+    ]);
+    return $inputfields;
+  }
+
+  /**
    * Add hooks to hide settingspage from pagetree
    */
   protected function hideSettingsPage(): void
@@ -70,18 +85,9 @@ class RockSettings extends WireData implements Module, ConfigurableModule
     );
   }
 
-  /**
-   * Config inputfields
-   * @param InputfieldWrapper $inputfields
-   */
-  public function getModuleConfigInputfields($inputfields)
+  public function ___uninstall(): void
   {
-    $inputfields->add([
-      'type' => 'checkbox',
-      'name' => 'showPage',
-      'label' => 'Show SettingsPage in Pagetree',
-      'checked' => $this->showPage ? 'checked' : '',
-    ]);
-    return $inputfields;
+    rockmigrations()->deleteFields("tags=RockSettings");
+    rockmigrations()->deleteTemplates("tags=RockSettings");
   }
 }
