@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/baumrock/RockSettings/compare/v2.2.3...v2.2.4) (2025-06-10)
+
+
+### Bug Fixes
+
+* installation broken - add custom install method ([f5e8e72](https://github.com/baumrock/RockSettings/commit/f5e8e72a718e41c6c383f5969b5781c5fd3f3643))
+
 ## [2.2.3](https://github.com/baumrock/RockSettings/compare/v2.2.2...v2.2.3) (2024-11-11)
 
 
@@ -26,11 +33,4 @@
 ### Features
 
 * add phoneTag() and mailTag() methods ([e17e282](https://github.com/baumrock/RockSettings/commit/e17e282a5f5d134acc9176d4ab4aeb62a0e97b58))
-
-## [2.1.1](https://github.com/baumrock/RockSettings/compare/v2.1.0...v2.1.1) (2024-02-06)
-
-
-### Bug Fixes
-
-* fix wrong return type ([78375e0](https://github.com/baumrock/RockSettings/commit/78375e098db2116d9711301df1568d64c34c5346))
 
