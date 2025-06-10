@@ -85,6 +85,14 @@ class RockSettings extends WireData implements Module, ConfigurableModule
     );
   }
 
+  public function ___install(): void
+  {
+    // should be handled by rockmigrations but does not work as of 2025-06-10
+    wire()->classLoader->addNamespace('RockSettings', __DIR__ . '/pageClasses');
+    $settingsPage = new SettingsPage();
+    $settingsPage->migrate();
+  }
+
   public function ___uninstall(): void
   {
     rockmigrations()->deleteFields("tags=RockSettings");

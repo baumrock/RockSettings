@@ -141,7 +141,7 @@ class SettingsPage extends Page
   protected function getRTEModuleClass(): string
   {
     if (wire()->modules->isInstalled('InputfieldTinyMCE')) return 'InputfieldTinyMCE';
-    if (wire()->modules->isInstalled('InputfieldCKEditor')) return 'InputfieldCKEditor';
+    return 'InputfieldCKEditor';
   }
 
   public function hookAddHost(HookEvent $event): void
