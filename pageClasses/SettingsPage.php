@@ -393,6 +393,7 @@ class SettingsPage extends Page
       'fields' => $fields,
       'templates' => [
         self::tpl => [
+          'pageClass' => self::class,
           'fields' => $fieldsTemplateContext,
           'icon' => 'cogs',
           'noSettings' => true,
