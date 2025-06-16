@@ -162,6 +162,11 @@ class SettingsPage extends Page
     $event->return = $markup;
   }
 
+  public function linkedin(): string
+  {
+    return $this->getFormatted(self::field_linkedin) ?: '';
+  }
+
   public function migrate()
   {
     $rm = rockmigrations();
