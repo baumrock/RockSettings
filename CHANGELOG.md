@@ -1,3 +1,10 @@
+## [2.2.6](https://github.com/baumrock/RockSettings/compare/v2.2.5...v2.2.6) (2025-06-16)
+
+
+### Bug Fixes
+
+* add missing linkedin() method ([0446185](https://github.com/baumrock/RockSettings/commit/0446185190b7c8f692afeafd4b4c0f676a6b5c44))
+
 ## [2.2.5](https://github.com/baumrock/RockSettings/compare/v2.2.4...v2.2.5) (2025-06-12)
 
 
@@ -25,12 +32,4 @@
 ### Bug Fixes
 
 * make it work both with CKE and TinyMCE ([4ba52c9](https://github.com/baumrock/RockSettings/commit/4ba52c9a562056a4fc82ba1d006e8ad0bb47de09))
-
-## [2.2.1](https://github.com/baumrock/RockSettings/compare/v2.2.0...v2.2.1) (2024-06-03)
-
-
-### Bug Fixes
-
-* dont add host on some fields ([0696ae4](https://github.com/baumrock/RockSettings/commit/0696ae4cd4151e4b5bf20525e7e0aa8396e66d99))
-* host in redirects wrong ([5c42e91](https://github.com/baumrock/RockSettings/commit/5c42e9122e1aa386e3f3fa745027a7fc183e185d))
 
