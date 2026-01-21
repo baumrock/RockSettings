@@ -6,7 +6,7 @@ use RockSettings\SettingsPage;
 
 /**
  * @author Bernhard Baumrock, 06.01.2024
- * @license COMMERCIAL DO NOT DISTRIBUTE
+ * @license MIT as of 2026-01-21
  * @link https://www.baumrock.com
  */
 class RockSettings extends WireData implements Module, ConfigurableModule
