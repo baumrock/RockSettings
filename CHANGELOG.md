@@ -1,3 +1,14 @@
+## [3.0.0](https://github.com/baumrock/RockSettings/compare/v2.2.6...v3.0.0) (2026-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* change license to MIT
+
+### Bug Fixes
+
+* change license to MIT ([e9e5f6c](https://github.com/baumrock/RockSettings/commit/e9e5f6cad0cdf6cac9c30e6cc406e21a86de2fcd))
+
 ## [2.2.6](https://github.com/baumrock/RockSettings/compare/v2.2.5...v2.2.6) (2025-06-16)
 
 
@@ -25,11 +36,4 @@
 ### Bug Fixes
 
 * add missing uninstall routine ([895cee4](https://github.com/baumrock/RockSettings/commit/895cee4976fbd2783cf9127c435bbfc143853e25))
-
-## [2.2.2](https://github.com/baumrock/RockSettings/compare/v2.2.1...v2.2.2) (2024-10-15)
-
-
-### Bug Fixes
-
-* make it work both with CKE and TinyMCE ([4ba52c9](https://github.com/baumrock/RockSettings/commit/4ba52c9a562056a4fc82ba1d006e8ad0bb47de09))
 
